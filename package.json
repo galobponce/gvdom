@@ -1,0 +1,13 @@
+{
+  "name": "gvdom",
+  "version": "0.0.1",
+  "description": "A really small VDOM library to build UI interfaces through JSX syntax",
+  "main": "index.js",
+  "repository": "https://github.com/galobponce/gvdom.git",
+  "author": "galobponce <personal.galo.bello@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "7.21.8"
+  }
+}
