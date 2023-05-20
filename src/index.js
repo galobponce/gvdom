@@ -75,10 +75,9 @@ const setAttributes = ($element, props) => {
  * @param {HTMLElement} $element
  * @param {object} props
  */
-const addEventListeners = ($element, props = {}) => {
-  if (!props) {
-    return
-  }
+const addEventListeners = ($element, props) => {
+  if (!props) return
+
   Object.keys(props)
     .filter(isEventProp)
     .forEach((event) =>
