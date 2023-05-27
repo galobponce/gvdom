@@ -1,5 +1,6 @@
 /**
  * gvdom's JSX pragma
+ *
  * @param {*} type
  * @param {*} props
  * @param  {...any} args
@@ -14,25 +15,38 @@ export const gvdom = (type, props, ...args) => {
 }
 
 /**
- * Checks if a property is an event.
+ * Checks if a prop is custom so it should not be in the real dom.
+ *
  * @param {string} prop
- * @return {boolean} true if it is an event, false otherwise
+ * @return {boolean} true if it is, false otherwise
+ */
+const isCustomProp = (prop) => {
+  return isEventProp(prop)
+}
+
+/**
+ * Checks if a prop is an event.
+ *
+ * @param {string} prop
+ * @return {boolean} true if it is, false otherwise
  */
 const isEventProp = (prop) => {
   return /^on/.test(prop)
 }
 
 /**
- * Special treatment for boolean props.
+ * Adds a boolean prop.
  *
  * This is because in cases like checked={false} in JSX
  * are transformed into checked="false" wich is actually true.
+ *
  * @param {HTMLElement} $element
- * @param {string} prop
- * @param {boolean} value
+ * @param {string} prop the prop's name
+ * @param {boolean} value the prop's value
  */
-const setBooleanProp = ($element, prop, value) => {
+const addBooleanProp = ($element, prop, value) => {
   if (value) {
+    $element.setAttribute(prop, value)
     $element[prop] = true
   } else {
     $element[prop] = false
@@ -43,6 +57,7 @@ const setBooleanProp = ($element, prop, value) => {
  * Parses an event name.
  *
  * Example: "onClick" => "click"
+ *
  * @param {string} eventName
  * @return {string}
  */
@@ -51,23 +66,33 @@ const extractEventName = (eventName) => {
 }
 
 /**
- * Add the attributes from the props to the given element.
+ * Adds all given props to an element.
+ *
  * @param {HTMLElement} $element
  * @param {object} props
  */
-const setAttributes = ($element, props) => {
+const addProps = ($element, props) => {
   // If there is no props
   if (!Object.keys(props).length) return
 
-  Object.keys(props)
-    .filter((prop) => !isEventProp(prop))
-    .map((prop) => {
-      $element.setAttribute(prop, props[prop])
+  Object.keys(props).map((prop) => addProp($element, prop, props[prop]))
+}
 
-      if (typeof props[prop] === "boolean") {
-        setBooleanProp($element, prop, props[prop])
-      }
-    })
+/**
+ * Adds a given prop to an element.
+ *
+ * @param {HTMLElement} $element
+ * @param {string} prop the prop's name
+ * @param {*} value the prop's value
+ */
+const addProp = ($element, prop, value) => {
+  if (isCustomProp(prop)) return
+
+  if (typeof value === "boolean") {
+    addBooleanProp($element, prop, value)
+  } else {
+    $element.setAttribute(prop, value)
+  }
 }
 
 /**
@@ -76,11 +101,12 @@ const setAttributes = ($element, props) => {
  * @param {object} props
  */
 const addEventListeners = ($element, props) => {
-  if (!props) return
+  // If there is no props
+  if (!Object.keys(props).length) return
 
   Object.keys(props)
     .filter(isEventProp)
-    .forEach((event) =>
+    .map((event) =>
       $element.addEventListener(extractEventName(event), props[event])
     )
 }
@@ -97,11 +123,11 @@ export const createElement = (node) => {
 
   // Handler for text nodes
   if (typeof node === "string" || typeof node === "number")
-    return document.createTextNode(node)
+    return document.createTextNode(node.toString())
 
   const $element = document.createElement(node.type)
 
-  setAttributes($element, node.props)
+  addProps($element, node.props)
 
   addEventListeners($element, node.props)
 
