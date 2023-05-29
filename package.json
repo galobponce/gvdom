@@ -2,17 +2,25 @@
   "name": "gvdom",
   "version": "0.0.1",
   "description": "A really small VDOM library to build UI interfaces through JSX syntax",
-  "main": "index.js",
+  "keywords": [
+    "ui",
+    "jsx",
+    "vdom",
+    "gvdom",
+    "frontend",
+    "micro-vdom-library"
+  ],
+  "browser": "lib/index.min.js",
   "repository": "https://github.com/galobponce/gvdom.git",
   "author": "galobponce <personal.galo.bello@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
-    "start": "parcel example/index.html"
+    "dev": "parcel dev/index.html",
+    "build": "swc ./src/index.js -o ./lib/index.min.js"
   },
   "devDependencies": {
-    "@babel/core": "7.21.8",
-    "@babel/plugin-transform-react-jsx": "7.21.5",
-    "parcel": "2.8.3"
+    "parcel": "2.8.3",
+    "@swc/cli": "0.1.62",
+    "@swc/core": "1.3.60"
   }
 }

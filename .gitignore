@@ -1,4 +1,8 @@
 node_modules/
 .parcel-cache/
-dist/
-example/
+
+# Folder for npm
+lib/
+
+# Folder to test changes
+dev/
