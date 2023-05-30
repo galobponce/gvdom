@@ -16,7 +16,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel dev/index.html",
-    "build": "swc ./src/index.js -o ./lib/index.min.js"
+    "build": "swc ./src/index.js -o ./lib/index.min.js",
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "parcel": "2.8.3",
