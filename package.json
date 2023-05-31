@@ -1,6 +1,6 @@
 {
   "name": "gvdom",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A really small VDOM library to build UI interfaces through JSX syntax",
   "keywords": [
     "ui",
@@ -10,18 +10,19 @@
     "frontend",
     "micro-vdom-library"
   ],
-  "browser": "lib/index.min.js",
+  "main": "lib/index.js",
+  "browser": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "https://github.com/galobponce/gvdom.git",
   "author": "galobponce <personal.galo.bello@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "parcel dev/index.html",
-    "build": "swc ./src/index.js -o ./lib/index.min.js",
+    "build": "tsc --project ./tsconfig.json && rm -rf lib/types/index.js",
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "parcel": "2.8.3",
-    "@swc/cli": "0.1.62",
-    "@swc/core": "1.3.60"
+    "parcel": "2.9.1",
+    "typescript": "5.0.4"
   }
 }
