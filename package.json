@@ -8,6 +8,7 @@
     "vdom",
     "gvdom",
     "frontend",
+    "typescript",
     "micro-vdom-library"
   ],
   "main": "lib/index.js",
