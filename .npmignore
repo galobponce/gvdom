@@ -1,0 +1,6 @@
+node_modules/
+src/
+dev/
+.parcel-cache/
+
+tsconfig.json
