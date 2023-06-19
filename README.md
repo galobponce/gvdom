@@ -18,7 +18,7 @@ Then, you can create components like React with ***JSX*** syntax.
 
 As mentioned before, the syntax is similar to React:
 
-```
+```jsx
 import { gvdom, createElement } from "gvdom"
 
 const Title = ({ text }) => {
@@ -32,7 +32,7 @@ const Title = ({ text }) => {
 
 Then, you can render it like this:
 
-```
+```jsx
 import { gvdom, createElement } from "gvdom"
 
 const Title = ({ text }) => {
